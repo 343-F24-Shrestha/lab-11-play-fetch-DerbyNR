@@ -25,15 +25,51 @@ document.getElementById("get-btn").addEventListener("click", async () => {
 });
 
 document.getElementById("post-json-btn").addEventListener("click", async () => {
-    // This function should send a POST request to the echo endpoint with the input data as JSON
-    // The two input fields should be included in the request body as **JSON data**
+    // This function sends a POST request to the echo endpoint with the input data as JSON
 
-    // TODO
+    // Get input data
+    const name = document.getElementById("name").value;
+    const age = document.getElementById("age").value;
+
+    try {
+        // Send POST request with JSON body
+        const response = await fetch("https://echo.zuplo.io/api", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name, age }), // Convert data to JSON string
+        });
+        const data = await response.json();
+
+        // Display formatted JSON
+        output.textContent = JSON.stringify(data, null, 2);
+    } catch (error) {
+        output.textContent = `Error: ${error.message}`;
+    }
 });
 
 document.getElementById("post-form-btn").addEventListener("click", async () => {
-    // This function should send a POST request to the echo endpoint with the input data as form data
-    // The two input fields should be included in the request body as **url-encoded data**
+    // This function sends a POST request to the echo endpoint with the input data as form data
 
-    // TODO
+    // Get input data
+    const name = document.getElementById("name").value;
+    const age = document.getElementById("age").value;
+
+    try {
+        // Send POST request with form data
+        const response = await fetch("https://echo.zuplo.io/api", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({ name, age }).toString(), // Convert data to URL-encoded format
+        });
+        const data = await response.json();
+
+        // Display formatted JSON
+        output.textContent = JSON.stringify(data, null, 2);
+    } catch (error) {
+        output.textContent = `Error: ${error.message}`;
+    }
 });

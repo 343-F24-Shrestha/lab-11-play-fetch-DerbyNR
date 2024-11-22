@@ -1,16 +1,43 @@
 const output1 = document.getElementById('output-1');
 const output2 = document.getElementById('output-2');
 
+// Dog CEO's Dog API - Get a random dog image
 document.getElementById('api-1-btn').addEventListener('click', async () => {
-    // Make a request to your first API here. Put the response's data in output-1.
-    // If your response has no body, put the status code in output-1.
+    const url = 'https://dog.ceo/api/breeds/image/random';
 
-    // TODO
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (response.ok) {
+            output1.innerHTML = `
+                <p><strong>Random Dog Image:</strong></p>
+                <img src="${data.message}" alt="Random Dog" style="max-width: 100%; height: auto;">
+            `;
+        } else {
+            output1.textContent = `Error ${response.status}: Could not fetch dog image`;
+        }
+    } catch (error) {
+        output1.textContent = `Error: ${error.message}`;
+    }
 });
 
+// Cat Facts API - Get a random cat fact
 document.getElementById('api-2-btn').addEventListener('click', async () => {
-    // Make a request to your second API here. Put the response's data in output-2.
-    // If your response has no body, put the status code in output-2.
-    
-    // TODO
+    const url = 'https://catfact.ninja/fact';
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (response.ok) {
+            output2.innerHTML = `
+                <p><strong>Random Cat Fact:</strong> ${data.fact}</p>
+            `;
+        } else {
+            output2.textContent = `Error ${response.status}: Could not fetch cat fact`;
+        }
+    } catch (error) {
+        output2.textContent = `Error: ${error.message}`;
+    }
 });
